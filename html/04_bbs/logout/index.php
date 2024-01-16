@@ -7,4 +7,4 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 session_destroy();
-header('Location: /04_bbs/login/');
+header('Location: /04_bbs/');

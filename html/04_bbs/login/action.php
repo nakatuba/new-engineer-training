@@ -24,7 +24,7 @@ try {
     $user = $stmt->fetch();
 
     if (password_verify($password, $user['password'])) {
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['user_id'] = $user['id'];
         header('Location: /04_bbs/');
     } else {
         echo <<<EOM
