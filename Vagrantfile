@@ -22,5 +22,7 @@ Vagrant.configure("2") do |config|
     systemctl restart mysql
 
     apt-get install -y php-mysql
+
+    crontab /vagrant/crontab
   SHELL
 end
