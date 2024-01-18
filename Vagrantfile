@@ -23,6 +23,8 @@ Vagrant.configure("2") do |config|
 
     apt-get install -y php-mysql
 
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
     crontab /vagrant/crontab
   SHELL
 end
