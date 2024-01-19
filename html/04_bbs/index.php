@@ -1,5 +1,10 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
+$twig = new \Twig\Environment($loader);
+
 session_start();
 
 try {
@@ -9,40 +14,22 @@ try {
     $stmt->execute();
     $posts = $stmt->fetchAll();
 
-    foreach ($posts as $post) {
+    foreach ($posts as &$post) {
         $stmt = $dbh->prepare('select * from users where id = :id');
         $stmt->bindValue(':id', $post['user_id']);
         $stmt->execute();
-        $user = $stmt->fetch();
-
-        echo <<<EOM
-        <div style="margin-bottom: 1rem">
-          {$user['username']}<br />
-          {$post['created_at']}<br />
-          {$post['content']}<br />
-        </div>
-        EOM;
+        $post['user'] = $stmt->fetch();
     }
+    unset($post);
 
     if (isset($_SESSION['user_id'])) {
         $stmt = $dbh->prepare('select * from users where id = :id');
         $stmt->bindValue(':id', $_SESSION['user_id']);
         $stmt->execute();
         $user = $stmt->fetch();
-
-        echo <<<EOM
-        <form action="/04_bbs/logout/" method="post">
-          {$user['username']} でログイン中
-          <input type="submit" value="ログアウト" />
-        </form>
-        <form action="/04_bbs/posts/" method="post">
-          <textarea name="content"></textarea>
-          <input type="submit" value="送信" />
-        </form>
-        EOM;
-    } else {
-        echo '<a href="/04_bbs/login/">ログイン</a>';
     }
+
+    echo $twig->render('index.html', ['posts' => $posts, 'user' => $user]);
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
