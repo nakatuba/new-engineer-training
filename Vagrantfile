@@ -25,6 +25,6 @@ Vagrant.configure("2") do |config|
 
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-    crontab /vagrant/crontab
+    crontab /vagrant/cron/crontab
   SHELL
 end
