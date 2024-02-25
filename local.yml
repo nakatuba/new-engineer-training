@@ -5,3 +5,18 @@
     - { role: mysql, tags: ["mysql"] }
     - { role: nginx, tags: ["nginx"] }
     - { role: php, tags: ["php"] }
+  tasks:
+    - name: Install composer
+      shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+    - name: Install packages
+      composer:
+        command: install
+        working_dir: /vagrant
+      environment:
+        COMPOSER_ALLOW_SUPERUSER: 1
+
+    - name: Run migration
+      shell: vendor/bin/phinx migrate
+      args:
+        chdir: /vagrant

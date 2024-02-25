@@ -30,16 +30,18 @@
     state: absent
 
 - name: Set default-character-set
-  lineinfile:
-    path: /etc/mysql/mysql.conf.d/mysqld.cnf
-    insertafter: '\[mysqld\]'
-    line: "default-character-set=utf8mb4"
+  ini_file:
+    path: /etc/mysql/mysql.conf.d/mysql.cnf
+    section: mysql
+    option: default-character-set
+    value: utf8mb4
 
 - name: Set character-set-server
-  lineinfile:
-    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
-    insertafter: '\[mysqld\]'
-    line: "character-set-server=utf8mb4"
+  ini_file:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    section: mysqld
+    option: character-set-server
+    value: utf8mb4
 
 - name: Create database
   mysql_db:

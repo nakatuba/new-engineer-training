@@ -8,7 +8,7 @@ $twig = new \Twig\Environment($loader);
 session_start();
 
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname=mysql', 'vagrant', 'vagrant');
+    $dbh = new PDO('mysql:host=localhost;dbname=development_db', 'vagrant', 'vagrant');
 
     $stmt = $dbh->prepare('select * from posts order by created_at');
     $stmt->execute();

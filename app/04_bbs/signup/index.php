@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
 
     try {
-        $dbh = new PDO('mysql:host=localhost;dbname=mysql', 'vagrant', 'vagrant');
+        $dbh = new PDO('mysql:host=localhost;dbname=development_db', 'vagrant', 'vagrant');
 
         $username = $_POST['username'];
         $password = $_POST['password'];
