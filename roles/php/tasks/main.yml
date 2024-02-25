@@ -1,2 +1,15 @@
 ---
 # tasks file for php
+
+- name: Add php repository
+  apt_repository:
+    repo: ppa:ondrej/php
+
+- name: Install php
+  apt:
+    name:
+      - php-fpm
+      - php-mysql
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
