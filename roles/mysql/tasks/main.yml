@@ -56,6 +56,20 @@
     login_user: "{{ admin_user_name }}"
     login_password: "{{ admin_user_password }}"
     name: "{{ user_name }}"
+    host: "{{ user_host }}"
     password: "{{ user_password }}"
     priv: "{{ db_name }}.*:ALL"
     state: present
+
+- name: Set bind-address to allow remote connection
+  ini_file:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    section: mysqld
+    option: bind-address
+    value: 0.0.0.0
+
+- name: Restart mysql
+  systemd:
+    state: restarted
+    name: mysql
+    enabled: yes
