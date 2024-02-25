@@ -20,3 +20,10 @@
       shell: vendor/bin/phinx migrate
       args:
         chdir: /vagrant
+
+    - name: Set up a cron job to backup database
+      cron:
+        name: backup database
+        minute: 0
+        hour: 0
+        job: mysqldump -uvagrant -pvagrant {{ db_name }} | gzip > /vagrant/db/dumps/$(date +\%Y\%m\%d\%H\%M\%S).sql.gz
