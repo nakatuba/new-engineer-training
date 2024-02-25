@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname=mysql', 'vagrant', 'vagrant');
+    $dbh = new PDO('mysql:host=localhost;dbname=development_db', 'vagrant', 'vagrant');
 
     $user_id = $_SESSION['user_id'];
     $content = $_POST['content'];

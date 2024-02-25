@@ -1,0 +1,11 @@
+---
+# defaults file for mysql
+
+admin_user_name: root
+admin_user_password: root
+
+user_name: vagrant
+user_host: "%"
+user_password: vagrant
+
+db_name: development_db

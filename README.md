@@ -8,26 +8,14 @@
 vagrant up
 ```
 
-2. Connect to the virtual machine
+2. Create a vagrant ssh config file
 
 ```
-vagrant ssh
+vagrant ssh-config > vagrant_ssh_config
 ```
 
-3. Go to synced directory
+3. Run ansible playbook
 
 ```
-cd vagrant
-```
-
-4. Install packages
-
-```
-composer install
-```
-
-5. Run migration
-
-```
-vendor/bin/phinx migrate
+ansible-playbook local.yml
 ```

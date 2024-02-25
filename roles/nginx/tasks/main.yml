@@ -1,0 +1,36 @@
+---
+# tasks file for nginx
+
+- name: Add nginx signing key
+  apt_key:
+    url: https://nginx.org/keys/nginx_signing.key
+    keyring: /usr/share/keyrings/nginx-archive-keyring.gpg
+
+- name: Add nginx repository
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/ubuntu jammy nginx
+    state: present
+    filename: nginx
+
+- name: Install nginx
+  apt:
+    name: nginx-core
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Copy nginx config
+  copy:
+    src: default.conf
+    dest: /etc/nginx/conf.d/default.conf
+
+- name: Disable nginx default config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Restart nginx
+  systemd:
+    state: restarted
+    name: nginx
+    enabled: yes
